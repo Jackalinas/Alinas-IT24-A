@@ -136,7 +136,11 @@
             deleteBtn.style.marginLeft = '8px';
 
 
-            /
+            deleteBtn.addEventListener('click', () => {
+                const confirmDelete = window.confirm('Are you sure you want to delete this task?');
+                if (confirmDelete) {
+                    li.remove();
+                }
             });
 
 
@@ -155,3 +159,4 @@
     </script>
 </body>
 </html>
+
