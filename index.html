@@ -41,7 +41,7 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        const OpenstreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        const openStreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });
@@ -55,24 +55,28 @@
         satellite.addTo(map);
 
         //Render Pins
-        fetch(mapDataUrl)
-        .then(response=>response.json())
+       fetch(mapDataUrl)
+        .then(response => response.json()) 
         .then(data=>{
+
             data.forEach(pin=>{
                 const marker = L.marker([pin.lat,pin.lng]).addTo(map);
+
                 const image = `<img src='${pin.img}' class="popup-image">`;
+
                 marker.bindPopup(`
                 ${pin.title}<br>
                     <hr> 
                     ${image}
-                    `);
+                `);
             });
+            
 
-            const baseMaps = [{
+            const baseMaps = {
                 "OpenStreetMap" : openStreetMap,
                 "Satellite" : satellite
-            }];
-            L.control.layer(baseMaps).addTo(map);
+            }
+            L.control.layers(baseMaps).addTo(map);
         });
 
 
